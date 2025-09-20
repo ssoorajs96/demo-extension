@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Mobile Preview Overlay",
+  "description": "Preview the current page inside simulated mobile devices.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "Mobile Preview"
+  },
+  "icons": {
+    "16": "public/icons/icon16.png",
+    "32": "public/icons/icon32.png",
+    "48": "public/icons/icon48.png",
+    "128": "public/icons/icon128.png"
+  },
+  
+  "permissions": ["activeTab", "scripting", "tabs", "downloads", "windows", "debugger"],
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/index.tsx"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/content/overlay.css", "src/viewer/index.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
+
